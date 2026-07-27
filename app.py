@@ -10,6 +10,7 @@ from langchain_community.vectorstores import Chroma
 # ----------------------------
 # Page config
 # ----------------------------
+
 st.set_page_config(
     page_title="Semantic Book Recommender",
     layout="wide"
@@ -19,6 +20,7 @@ st.set_page_config(
 # ----------------------------
 # Load books dataset
 # ----------------------------
+
 @st.cache_data
 def load_books():
     return pd.read_csv("books_with_emotions.csv")
@@ -28,8 +30,9 @@ books = load_books()
 
 
 # ----------------------------
-# Create vector database
+# Create Vector Database
 # ----------------------------
+
 @st.cache_resource
 def create_vector_db():
 
@@ -37,22 +40,29 @@ def create_vector_db():
         "tagged_description.txt"
     ).load()
 
+
     text_splitter = CharacterTextSplitter(
         chunk_size=1,
         chunk_overlap=0,
         separator="\n"
     )
 
-    documents = text_splitter.split_documents(raw_documents)
+
+    documents = text_splitter.split_documents(
+        raw_documents
+    )
+
 
     embeddings = HuggingFaceEmbeddings(
         model_name="sentence-transformers/all-MiniLM-L6-v2"
     )
 
+
     db = Chroma.from_documents(
         documents=documents,
         embedding=embeddings
     )
+
 
     return db
 
@@ -60,9 +70,11 @@ def create_vector_db():
 db_books = create_vector_db()
 
 
+
 # ----------------------------
-# Recommendation function
+# Recommendation Function
 # ----------------------------
+
 def retrieve_semantic_recommendations(
     query,
     category="All",
@@ -75,6 +87,7 @@ def retrieve_semantic_recommendations(
         query,
         k=initial_top_k
     )
+
 
     books_list = [
         int(rec[0].page_content.strip('"').split()[0])
@@ -146,6 +159,7 @@ query = st.text_input(
 )
 
 
+
 categories = [
     "All"
 ] + sorted(
@@ -162,6 +176,7 @@ category = st.selectbox(
 )
 
 
+
 tone = st.selectbox(
     "Choose emotional tone",
     [
@@ -176,9 +191,11 @@ tone = st.selectbox(
 
 
 
-if st.button("Recommend Books"):
+if st.button("🔍 Recommend Books"):
+
 
     if query:
+
 
         results = retrieve_semantic_recommendations(
             query,
@@ -187,39 +204,68 @@ if st.button("Recommend Books"):
         )
 
 
-        st.subheader("Recommended Books")
+        st.subheader(
+            "Recommended Books"
+        )
 
 
         for _, row in results.iterrows():
 
-            col1, col2 = st.columns([1,4])
+            col1, col2 = st.columns(
+                [1, 4]
+            )
 
 
             with col1:
-                if pd.notna(row["large_thumbnail"]):
+
+                if (
+                    "large_thumbnail" in row.index
+                    and pd.notna(row["large_thumbnail"])
+                ):
                     st.image(
                         row["large_thumbnail"],
                         width=120
                     )
 
 
+                elif (
+                    "thumbnail" in row.index
+                    and pd.notna(row["thumbnail"])
+                ):
+                    st.image(
+                        row["thumbnail"],
+                        width=120
+                    )
+
+
             with col2:
+
                 st.write(
-                    "### " + row["title"]
+                    "### " + str(row["title"])
                 )
+
 
                 st.write(
                     "Author:",
                     row["authors"]
                 )
 
-                st.write(
-                    row["description"][:300] + "..."
+
+                description = str(
+                    row["description"]
                 )
+
+
+                st.write(
+                    description[:300] + "..."
+                )
+
 
                 st.divider()
 
+
     else:
+
         st.warning(
             "Please enter a description."
         )
