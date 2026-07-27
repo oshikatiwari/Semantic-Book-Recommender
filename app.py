@@ -6,7 +6,7 @@ st.set_page_config(
     layout="wide"
 )
 
-books = pd.read_csv("books_with_emotions.csv")
+books = pd.read_csv("./books_with_emotions.csv")
 
 st.title("📚 Semantic Book Recommender")
 
