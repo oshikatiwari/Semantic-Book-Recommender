@@ -7,12 +7,7 @@ Original file is located at
     https://colab.research.google.com/github/oshikatiwari/Semantic-Book-Recommender/blob/main/gradio_dashboard.ipynb
 """
 
-from google.colab import drive
-drive.mount('/content/drive')
 
-!pip install langchain-chroma langchain-huggingface gradio
-
-!pip install langchain-community langchain-text-splitters langchain-huggingface langchain-chroma gradio
 
 import pandas as pd
 import numpy as np
@@ -23,9 +18,7 @@ from langchain_text_splitters import CharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_chroma import Chroma
 
-books = pd.read_csv(
-    "/content/drive/MyDrive/book recommender/data/books_with_emotions.csv"
-)
+books = pd.read_csv("books_with_emotions.csv")
 
 books.head()
 
@@ -39,7 +32,7 @@ books["large_thumbnail"] = books["large_thumbnail"].str.replace(
 ) + "&fife=w800"
 
 raw_documents = TextLoader(
-    "/content/drive/MyDrive/book recommender/data/tagged_description.txt"
+    "tagged_description.txt"
 ).load()
 
 text_splitter = CharacterTextSplitter(
@@ -219,8 +212,7 @@ with gr.Blocks(theme=gr.themes.Glass()) as dashboard:
 
 
 dashboard.launch(
-    debug=True,
-    share=True
+    server_name="0.0.0.0",
+    server_port=7860
 )
 
-books.columns.tolist()
