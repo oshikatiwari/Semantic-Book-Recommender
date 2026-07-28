@@ -15,7 +15,7 @@ The system understands the meaning behind user queries by converting book descri
 
  
  ## 🎨 Gradio Demo (Temporary)
-🔗 https://7b6ea31ea86103f373.gradio.live/
+🔗 https://75f6e879f23fd72ba7.gradio.live/
 
  ⚠️ The Gradio public link is temporary and may expire.  
 > If the Gradio link is unavailable, use the Streamlit deployment above.
