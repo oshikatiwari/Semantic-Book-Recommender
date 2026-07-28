@@ -10,18 +10,17 @@ The system understands the meaning behind user queries by converting book descri
 
 ## 🎨 Gradio Demo (Temporary)
 
-🔗 https://7b6ea31ea86103f373.gradio.live/
-
-> ⚠️ The Gradio public link is temporary and may expire.  
-> If the Gradio link is unavailable, use the Streamlit deployment below.
-
----
-
 ## 🌐 Streamlit Demo
 
 🔗https://semantic-book-recommender-5cww2r8cwgzalgxlgcy3h4.streamlit.app/
-
 > Recommended version for stable access.
+
+ 
+ ## 🎨 Gradio Demo (Temporary)
+🔗 https://7b6ea31ea86103f373.gradio.live/
+
+ ⚠️ The Gradio public link is temporary and may expire.  
+> If the Gradio link is unavailable, use the Streamlit deployment above.
 
 ---
 
