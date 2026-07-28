@@ -8,8 +8,6 @@ The system understands the meaning behind user queries by converting book descri
 
 # 🚀 Live Demo
 
-## 🎨 Gradio Demo (Temporary)
-
 ## 🌐 Streamlit Demo
 
 🔗https://semantic-book-recommender-5cww2r8cwgzalgxlgcy3h4.streamlit.app/
